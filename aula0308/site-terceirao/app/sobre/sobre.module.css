@@ -1,0 +1,118 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  max-width: 1000px;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  width: 90%;
+  text-align: center;
+  flex: 1;
+}
+
+.content p {
+  color: #1e3a8a;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+.sobreHeader {
+  margin-bottom: 2.5rem;
+}
+
+.sobreHeader h2 {
+  color: #1e3a8a;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.subTitle {
+  color: #0284c7;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Seção de Texto Principal */
+.storySection {
+  background-color: #f0f9ff;
+  border-left: 5px solid #0284c7;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: left;
+  margin-bottom: 2.5rem;
+}
+
+.storySection p {
+  color: #334155 !important;
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+  line-height: 1.7;
+}
+
+/* Métricas/Estatísticas */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.statCard {
+  background-color: #0f172a;
+  color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+  transition: transform 0.2s ease;
+}
+
+.statCard:hover {
+  transform: translateY(-4px);
+}
+
+.statNumber {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #38bdf8;
+  display: block;
+}
+
+.statLabel {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  margin-top: 0.2rem;
+}
+
+/* Seção de Valores / Destaques */
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  text-align: left;
+}
+
+.featureCard {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-top: 4px solid #1e3a8a;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.featureCard h4 {
+  color: #1e3a8a;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.featureCard p {
+  color: #475569 !important;
+  font-size: 0.95rem !important;
+  font-weight: 400 !important;
+}

@@ -1,0 +1,36 @@
+.header {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+  color: #ffffff;
+  padding: 1.2rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  transition: opacity 0.2s;
+}
+
+.logo:hover {
+  opacity: 0.9;
+}
+
+.navList {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.navLink {
+  color: #93c5fd;
+  font-weight: 500;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.navLink:hover {
+  color: #ffffff;
+}

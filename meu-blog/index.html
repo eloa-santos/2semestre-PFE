@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meu Blog Interativo</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header-content">
+      <h1 class="logo">Meu Blog</h1>
+      <button id="theme-toggle" class="btn-theme">🌙 Modo Escuro</button>
+    </div>
+  </header>
+
+  <main class="container main-content">
+    <!-- Barra de busca e filtros -->
+    <div class="controls">
+      <input type="text" id="search-input" placeholder="🔍 Pesquisar artigos...">
+      <div id="category-filters" class="filters">
+        <button class="filter-btn active" data-category="todas">Todas</button>
+      </div>
+    </div>
+
+    <section id="posts-container" class="posts-grid">
+      <p>Carregando artigos...</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 - Desenvolvido no VS Code</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

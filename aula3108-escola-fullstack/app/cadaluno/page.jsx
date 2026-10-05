@@ -17,6 +17,34 @@ export default function Cadaluno() {
     setRa('');
   };
 
+
+
+  async function cadastrarAluno(evento) {
+      evento.preventDefault();
+      const resposta = await fetch("/api/alunos", {
+        method: "POST", 
+        headers: {
+          "Content-Type": 'application/json'
+        },
+        body: JSON.stringify({
+          nome, 
+          idade,
+          serie,
+          ra
+        })
+      })
+      const dados = await resposta.json();
+      alert(dados.mensagem || dados.erro);
+      if(resposta.ok){
+        setNome("")
+        setIdade("")
+        setSerie("")
+        setRa("")
+      }
+    }
+
+
+
   return (
     <div style={styles.container}>
       <Header />
@@ -26,7 +54,7 @@ export default function Cadaluno() {
           <h2 style={styles.title}>Cadastro de Alunos</h2>
           <p style={styles.subtitle}>Preencha os dados do aluno para efetuar o registro.</p>
 
-          <form onSubmit={handleSubmit} style={styles.form}>
+          <form onSubmit={cadastrarAluno} style={styles.form}>
             <div style={styles.inputGroup}>
               <label htmlFor="nome" style={styles.label}>Nome Completo</label>
               <input 

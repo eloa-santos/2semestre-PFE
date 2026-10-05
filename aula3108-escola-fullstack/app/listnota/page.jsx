@@ -1,9 +1,10 @@
 'use client';
 
+import { useState } from "react";
 import Header from "../componentes/header";
 
 export default function Listnota() {
-  const notas = [
+  const [notas, setNotas] = useState([
     {
       id: 1,
       aluno: "Kelvin Destaque",
@@ -13,7 +14,57 @@ export default function Listnota() {
       n2: 8.0,
       n3: 9.5,
     },
-  ];
+  ]);
+
+  // Estado para controlar a exibição do modal de cadastro
+  const [showModal, setShowModal] = useState(false);
+
+  // Estado do formulário
+  const [formData, setFormData] = useState({
+    aluno: "",
+    t1: "",
+    t2: "",
+    n1: "",
+    n2: "",
+    n3: "",
+  });
+
+  // Função para remover uma nota
+  const handleExcluir = (id) => {
+    setNotas(notas.filter((item) => item.id !== id));
+  };
+
+  // Atualiza os dados do formulário
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // Função para adicionar uma nova nota
+  const handleAdicionar = (e) => {
+    e.preventDefault();
+
+    if (!formData.aluno) {
+      alert("Por favor, preencha o nome do aluno.");
+      return;
+    }
+
+    const novaNota = {
+      id: notas.length > 0 ? Math.max(...notas.map((n) => n.id)) + 1 : 1,
+      aluno: formData.aluno,
+      t1: parseFloat(formData.t1) || 0,
+      t2: parseFloat(formData.t2) || 0,
+      n1: parseFloat(formData.n1) || 0,
+      n2: parseFloat(formData.n2) || 0,
+      n3: parseFloat(formData.n3) || 0,
+    };
+
+    setNotas([...notas, novaNota]);
+    setFormData({ aluno: "", t1: "", t2: "", n1: "", n2: "", n3: "" });
+    setShowModal(false);
+  };
 
   return (
     <div style={styles.container}>
@@ -22,8 +73,13 @@ export default function Listnota() {
       <main style={styles.main}>
         <div style={styles.card}>
           <div style={styles.headerTitle}>
-            <h2 style={styles.title}>Notas dos Alunos</h2>
-            <span style={styles.badge}>{notas.length} Registros</span>
+            <div>
+              <h2 style={styles.title}>Notas dos Alunos</h2>
+              <span style={styles.badge}>{notas.length} Registros</span>
+            </div>
+            <button style={styles.btnAdd} onClick={() => setShowModal(true)}>
+              + Adicionar Nota
+            </button>
           </div>
 
           <div style={styles.tableResponsive}>
@@ -37,6 +93,7 @@ export default function Listnota() {
                   <th style={styles.th}>N1</th>
                   <th style={styles.th}>N2</th>
                   <th style={styles.th}>N3</th>
+                  <th style={styles.th}>Ações</th>
                 </tr>
               </thead>
               <tbody>
@@ -54,6 +111,14 @@ export default function Listnota() {
                     <td style={styles.tdScore}>{item.n1.toFixed(1)}</td>
                     <td style={styles.tdScore}>{item.n2.toFixed(1)}</td>
                     <td style={styles.tdScore}>{item.n3.toFixed(1)}</td>
+                    <td style={styles.td}>
+                      <button
+                        style={styles.btnDelete}
+                        onClick={() => handleExcluir(item.id)}
+                      >
+                        Excluir
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -61,6 +126,99 @@ export default function Listnota() {
           </div>
         </div>
       </main>
+
+      {/* Modal para Adicionar Notas */}
+      {showModal && (
+        <div style={styles.modalOverlay}>
+          <div style={styles.modalContent}>
+            <h3 style={styles.modalTitle}>Adicionar Notas</h3>
+            <form onSubmit={handleAdicionar}>
+              <div style={styles.formGroup}>
+                <label style={styles.label}>Nome do Aluno:</label>
+                <input
+                  type="text"
+                  name="aluno"
+                  value={formData.aluno}
+                  onChange={handleChange}
+                  style={styles.input}
+                  required
+                />
+              </div>
+
+              <div style={styles.gridScores}>
+                <div style={styles.formGroup}>
+                  <label style={styles.label}>T1:</label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    name="t1"
+                    value={formData.t1}
+                    onChange={handleChange}
+                    style={styles.input}
+                  />
+                </div>
+                <div style={styles.formGroup}>
+                  <label style={styles.label}>T2:</label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    name="t2"
+                    value={formData.t2}
+                    onChange={handleChange}
+                    style={styles.input}
+                  />
+                </div>
+                <div style={styles.formGroup}>
+                  <label style={styles.label}>N1:</label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    name="n1"
+                    value={formData.n1}
+                    onChange={handleChange}
+                    style={styles.input}
+                  />
+                </div>
+                <div style={styles.formGroup}>
+                  <label style={styles.label}>N2:</label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    name="n2"
+                    value={formData.n2}
+                    onChange={handleChange}
+                    style={styles.input}
+                  />
+                </div>
+                <div style={styles.formGroup}>
+                  <label style={styles.label}>N3:</label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    name="n3"
+                    value={formData.n3}
+                    onChange={handleChange}
+                    style={styles.input}
+                  />
+                </div>
+              </div>
+
+              <div style={styles.modalActions}>
+                <button
+                  type="button"
+                  style={styles.btnCancel}
+                  onClick={() => setShowModal(false)}
+                >
+                  Cancelar
+                </button>
+                <button type="submit" style={styles.btnSave}>
+                  Salvar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -105,6 +263,28 @@ const styles = {
     borderRadius: "20px",
     fontSize: "0.85rem",
     fontWeight: "bold",
+    display: "inline-block",
+    marginTop: "5px",
+  },
+  btnAdd: {
+    backgroundColor: "#d32f2f",
+    color: "#ffffff",
+    border: "none",
+    padding: "10px 16px",
+    borderRadius: "6px",
+    fontWeight: "bold",
+    cursor: "pointer",
+    fontSize: "0.9rem",
+  },
+  btnDelete: {
+    backgroundColor: "#d32f2f",
+    color: "#ffffff",
+    border: "none",
+    padding: "6px 12px",
+    borderRadius: "4px",
+    cursor: "pointer",
+    fontSize: "0.85rem",
+    fontWeight: "bold",
   },
   tableResponsive: {
     overflowX: "auto",
@@ -142,5 +322,77 @@ const styles = {
   },
   trOdd: {
     backgroundColor: "#f9f9f9",
+  },
+  modalOverlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 1000,
+  },
+  modalContent: {
+    backgroundColor: "#ffffff",
+    padding: "25px",
+    borderRadius: "8px",
+    width: "100%",
+    maxWidth: "500px",
+    boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
+  },
+  modalTitle: {
+    marginTop: 0,
+    color: "#333",
+    borderBottom: "2px solid #d32f2f",
+    paddingBottom: "10px",
+  },
+  formGroup: {
+    marginBottom: "15px",
+  },
+  label: {
+    display: "block",
+    marginBottom: "5px",
+    color: "#555",
+    fontSize: "0.9rem",
+    fontWeight: "bold",
+  },
+  input: {
+    width: "100%",
+    padding: "8px",
+    borderRadius: "4px",
+    border: "1px solid #ccc",
+    boxSizing: "border-box",
+  },
+  gridScores: {
+    display: "grid",
+    gridTemplateColumns: "repeat(5, 1fr)",
+    gap: "10px",
+  },
+  modalActions: {
+    display: "flex",
+    justifyContent: "flex-end",
+    gap: "10px",
+    marginTop: "20px",
+  },
+  btnSave: {
+    backgroundColor: "#2e7d32",
+    color: "#fff",
+    border: "none",
+    padding: "8px 16px",
+    borderRadius: "4px",
+    cursor: "pointer",
+    fontWeight: "bold",
+  },
+  btnCancel: {
+    backgroundColor: "#757575",
+    color: "#fff",
+    border: "none",
+    padding: "8px 16px",
+    borderRadius: "4px",
+    cursor: "pointer",
+    fontWeight: "bold",
   },
 };
